@@ -23,7 +23,6 @@ Screenshots (concept and experience), Video
 ### Third party material: 
 
 For testing without a headset, use the XR Device Simulator (included in the xr interaction toolkit package):  https://www.youtube.com/watch?v=d4bTpkvBwrs
-
-### Limitations/Problems: 
+ 
 
 Copyright by ptaitl
