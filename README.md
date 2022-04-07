@@ -1,4 +1,4 @@
-# VRProjekt2122-ptaitl
+# 11-vrprj-4ahmns-sosem-ptaitl
 
 ## Ablauf
 Vor dem Labyrinth wartet ein Hase. Kommt der Spieler in die Nähe des Hasen, erscheint über ihm eine Sprechblase mit Spielanweisungen.
