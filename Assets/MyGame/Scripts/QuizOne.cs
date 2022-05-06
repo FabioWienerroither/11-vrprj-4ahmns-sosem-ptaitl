@@ -17,7 +17,9 @@ public class QuizOne : MonoBehaviour
     public Material wrongDigitMat;
     public Material correctDigitMat;
 
-    [Header("Primitives")]
+    [Header("QuizSettings")]
+    [Tooltip("Darf keine zwei gleichen Ziffern hintereinander beinhalten.")]
+    [Range(0,9999)]
     public int targetNumber;
     [HideInInspector]
     public string tempNumber;
