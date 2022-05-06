@@ -689,7 +689,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 15.4, y: 154}
+  m_AnchoredPosition: {x: 15.4, y: 163}
   m_SizeDelta: {x: 969.2, y: 325.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &225683820
@@ -713,9 +713,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "\nOstersonntag\nwird jedes Jahr am ersten Sonntag nach dem Vollmond im
-    Fr\xFChling gefeiert. Im Jahr 2022 ist das der 17. April. Um dieses R\xE4tsel
-    zu l\xF6sen, bilde die Quersumme aus diesem Datum, addiere die Zahl 2300 und
-    gibt das Ergebnis durch Ber\xFChren der Ziffern in das Zahlenfeld ein. (1252)"
+    Fr\xFChling gefeiert. Heuer ist das der 17/04/2022. Um dieses R\xE4tsel zu l\xF6sen,
+    bilde die Quersumme aus diesem Datum, addiere die Zahl 2300 und gibt das Ergebnis
+    durch Ber\xFChren der Ziffern in das Zahlenfeld ein."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: de06d904846f44df183ef493614c7f21, type: 2}
   m_sharedMaterial: {fileID: -8609185662775182503, guid: de06d904846f44df183ef493614c7f21, type: 2}
