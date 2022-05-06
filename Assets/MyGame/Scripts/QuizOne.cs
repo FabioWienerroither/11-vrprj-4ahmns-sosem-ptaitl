@@ -7,10 +7,8 @@ public class QuizOne : MonoBehaviour
 {
     int currentNumber;
     float timer;
-    string tempNumber;
-    bool puzzleOneCorrect;
-    bool puzzleOneWrong;
-    bool clickingIsAllowed;
+    string previousNumber;
+    bool soundHasPlayed;
     List<GameObject> digits = new List<GameObject>();
 
     [Header("Materials")]
@@ -21,81 +19,83 @@ public class QuizOne : MonoBehaviour
 
     [Header("Primitives")]
     public int targetNumber;
+    [HideInInspector]
+    public string tempNumber;
 
     private void Update()
     {
         try
         {
             currentNumber = Int32.Parse(tempNumber);
+        }
+        catch
+        {
+            currentNumber = 0;
+        }
 
-            if (tempNumber.Length >= 4)
+        if (tempNumber.Length >= 4)
+        {
+            if (currentNumber == targetNumber)
             {
-                clickingIsAllowed = false;
-
-                if (currentNumber == targetNumber)
+                if (!soundHasPlayed)
                 {
-                    puzzleOneCorrect = true;
-                    foreach (GameObject i in digits)
-                    {
-                        i.GetComponent<Renderer>().material = correctDigitMat;
-                        i.transform.GetChild(0).GetComponent<Renderer>().material = correctDigitMat;
-                    }
+                    AudioManager.instance.Play("correctSound");
+                    soundHasPlayed = true;
                 }
-                else
+
+                foreach (GameObject i in digits)
                 {
-                    timer += Time.deltaTime;
-
-                    foreach (GameObject i in digits)
-                    {
-                        i.GetComponent<Renderer>().material = wrongDigitMat;
-                        i.transform.GetChild(0).GetComponent<Renderer>().material = wrongDigitMat;
-                    }
-
-                    if (timer >= 2)
-                    {
-                        foreach (GameObject i in digits)
-                        {
-                            i.GetComponent<Renderer>().material = neutralDigitMat;
-                            i.transform.GetChild(0).GetComponent<Renderer>().material = neutralDigitMat;
-                        }
-
-                        digits.Clear();
-                        timer = 0;
-                        tempNumber = "";
-                    }
+                    i.GetComponent<Renderer>().material = correctDigitMat;
+                    i.transform.GetChild(0).GetComponent<Renderer>().material = correctDigitMat;
                 }
             }
             else
             {
-                clickingIsAllowed = true;
+                if (!soundHasPlayed)
+                {
+                    AudioManager.instance.Play("wrongSound");
+                    soundHasPlayed = true;
+                }
+
+                timer += Time.deltaTime;
+
+                foreach (GameObject i in digits)
+                {
+                    i.GetComponent<Renderer>().material = wrongDigitMat;
+                    i.transform.GetChild(0).GetComponent<Renderer>().material = wrongDigitMat;
+                }
+
+                if (timer >= 1)
+                {
+                    foreach (GameObject i in digits)
+                    {
+                        i.GetComponent<Renderer>().material = neutralDigitMat;
+                        i.transform.GetChild(0).GetComponent<Renderer>().material = neutralDigitMat;
+                    }
+
+                    digits.Clear();
+                    timer = 0;
+                    previousNumber = null;
+                    tempNumber = "";
+                }
             }
         }
-        catch
+        else
         {
-            return;
+            soundHasPlayed = false;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Digit" && clickingIsAllowed)
+        if (other.CompareTag("Digit") && other.gameObject.GetComponent<Digit>().digit.ToString() != previousNumber && timer == 0)
         {
             tempNumber += other.gameObject.GetComponent<Digit>().digit.ToString();
+            previousNumber = other.gameObject.GetComponent<Digit>().digit.ToString();
             digits.Add(other.gameObject);
             other.gameObject.GetComponent<Renderer>().material = highlightDigitMat;
             other.gameObject.transform.GetChild(0).GetComponent<Renderer>().material = highlightDigitMat;
-            if (puzzleOneCorrect)
-            {
-                AudioManager.instance.Play("correctSound");
-            }
-            else if(puzzleOneWrong)
-            {
-                AudioManager.instance.Play("wrongSound");
-            }
-            else
-            {
-                AudioManager.instance.Play("clickSound");
-            }
+            AudioManager.instance.Play("clickSound");
         }
     }
 }

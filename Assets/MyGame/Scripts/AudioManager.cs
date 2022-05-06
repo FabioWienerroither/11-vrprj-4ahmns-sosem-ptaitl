@@ -25,7 +25,7 @@ public class AudioManager : MonoBehaviour
                 hoppSound.Play();
                 break;
             case "clickSound":
-                hoppSound.Play();
+                clickSound.Play();
                 break;
             case "wrongSound":
                 wrongSound.Play();
