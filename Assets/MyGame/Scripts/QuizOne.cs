@@ -7,6 +7,7 @@ public class QuizOne : MonoBehaviour
 {
     int currentNumber;
     float timer;
+    string tempNumber;
     string previousNumber;
     bool soundHasPlayed;
     List<GameObject> digits = new List<GameObject>();
@@ -21,8 +22,11 @@ public class QuizOne : MonoBehaviour
     [Tooltip("Darf keine zwei gleichen Ziffern hintereinander beinhalten.")]
     [Range(0,9999)]
     public int targetNumber;
-    [HideInInspector]
-    public string tempNumber;
+
+    private void Start()
+    {
+        tempNumber = "";
+    }
 
     private void Update()
     {
