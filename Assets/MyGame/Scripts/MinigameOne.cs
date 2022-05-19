@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class QuizOne : MonoBehaviour
+public class MinigameOne : MonoBehaviour
 {
     // Privates  - - - - - - - - - - - - 
 
