@@ -1,46 +1,44 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MinigameOne : MonoBehaviour
 {
-    // Privates  - - - - - - - - - - - - 
-
+    #region Privates
     int currentNumber;
-    public int tryCount;
+    int tryCount;
     float timer;
     string tempNumber;
     string previousNumber;
     bool soundHasPlayed;
     List<GameObject> digits = new List<GameObject>();
+    #endregion
 
-    // Publics - - - - - - - - - - - - -
-
+    #region Fields
     [Header("Materials")]
     public Material neutralDigitMat;
     public Material highlightDigitMat;
     public Material wrongDigitMat;
     public Material correctDigitMat;
-
     [Header("QuizSettings")]
-    [Tooltip("Darf keine zwei gleichen Ziffern hintereinander beinhalten.")]
-    [Range(0,9999)]
+    [Tooltip("Darf keine zwei gleichen Ziffern hintereinander beinhalten und muss keiner als 9999 sein.")]
     public int targetNumber;
-    public bool quizOneDone;
-
-    // Temporär
-    public TextMeshProUGUI infoText;
+    [Range(0,10)]
+    public int timeoutAfterTry;
+    public static bool quizOneDone;
+    #endregion
 
     private void Start()
     {
+        // Leeren String setzten, sonst kann die Länge des Strinngs nicht ausgelesen werden
+
         tempNumber = "";
     }
 
     private void Update()
     {
+        // Wenn keine Zahl gedrückt wird, kann der String nicht geparst werden und die akutelle Zahl soll 0 sein
+
         try
         {
             currentNumber = Int32.Parse(tempNumber);
@@ -50,21 +48,23 @@ public class MinigameOne : MonoBehaviour
             currentNumber = 0;
         }
 
+        // Wenn vier Zahlen gderückt wurden soll die Kombination überprüft werden
+
         if (tempNumber.Length >= 4)
         {
             if (currentNumber == targetNumber)
             {
                 quizOneDone = true;
-             
-                //Temporär
-                infoText.text = "Gut gemacht, Rätsel Eins erfolgreich gelöst!";
+
+                // Der 'correctSound' soll nur einmal abgespielt werden
 
                 if (!soundHasPlayed)
                 {
                     AudioManager.instance.Play("correctSound");
                     soundHasPlayed = true;
-
                 }
+
+                // Alle gedrückten Zahlen sollen grün werden
 
                 foreach (GameObject i in digits)
                 {
@@ -74,15 +74,23 @@ public class MinigameOne : MonoBehaviour
             }
             else
             {
+                // Der 'wrongSound' soll nur einmal abgespielt werden
 
                 if (!soundHasPlayed)
                 {
                     AudioManager.instance.Play("wrongSound");
                     soundHasPlayed = true;
+
+                    // Der Try Counter soll nur einmal nach oben zählen
+
                     tryCount += 1;
                 }
 
+                // Der Timer regelt den Timeout nach einem Eingabeversuch
+
                 timer += Time.deltaTime;
+
+                // Alle gedrückten Zahlen sollen rot werden
 
                 foreach (GameObject i in digits)
                 {
@@ -90,7 +98,9 @@ public class MinigameOne : MonoBehaviour
                     i.transform.GetChild(0).GetComponent<Renderer>().material = wrongDigitMat;
                 }
 
-                if (timer >= 1)
+                // Nach dem Timeout soll das Zahlenfeld zurückgesetzt werden
+
+                if (timer >= timeoutAfterTry)
                 {
                     foreach (GameObject i in digits)
                     {
@@ -112,20 +122,35 @@ public class MinigameOne : MonoBehaviour
 
         if(tryCount >= 1 && !quizOneDone)
         {
-            // Temporär
-            infoText.text = "Ich merke schon, Mathe war nicht dein Lieblingsfach. Die Lösung für dieses Rätsel ist 2318";
+            // Hinweis geben
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        // Collision nur akzeptieren, wenn es sich um den 
+
         if (other.CompareTag("Digit") && other.gameObject.GetComponent<Digit>().digit.ToString() != previousNumber && timer == 0 && !quizOneDone)
         {
+            // Digit zum zu parsenden String hinzufügen
+
             tempNumber += other.gameObject.GetComponent<Digit>().digit.ToString();
+
+            // Um ungewollte Eingaben zu verhindern, sollen nicht zwei gleiche Zahlen hintereinander gedrückt werden können
+
             previousNumber = other.gameObject.GetComponent<Digit>().digit.ToString();
+
+            // gedrückte Zahl zur Liste, die später alle gedrückten Zahlen grün bzw. rot färbt
+
             digits.Add(other.gameObject);
+
+            // Eingabe durch Einfärben markieren
+
             other.gameObject.GetComponent<Renderer>().material = highlightDigitMat;
             other.gameObject.transform.GetChild(0).GetComponent<Renderer>().material = highlightDigitMat;
+
+            // 'clickSound' abspielen
+
             AudioManager.instance.Play("clickSound");
         }
     }
