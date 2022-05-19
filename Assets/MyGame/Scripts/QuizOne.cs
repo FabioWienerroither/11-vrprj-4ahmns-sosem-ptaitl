@@ -1,16 +1,23 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class QuizOne : MonoBehaviour
 {
+    // Privates  - - - - - - - - - - - - 
+
     int currentNumber;
+    public int tryCount;
     float timer;
     string tempNumber;
     string previousNumber;
     bool soundHasPlayed;
     List<GameObject> digits = new List<GameObject>();
+
+    // Publics - - - - - - - - - - - - -
 
     [Header("Materials")]
     public Material neutralDigitMat;
@@ -22,6 +29,10 @@ public class QuizOne : MonoBehaviour
     [Tooltip("Darf keine zwei gleichen Ziffern hintereinander beinhalten.")]
     [Range(0,9999)]
     public int targetNumber;
+    public bool quizOneDone;
+
+    // Temporär
+    public TextMeshProUGUI infoText;
 
     private void Start()
     {
@@ -43,10 +54,16 @@ public class QuizOne : MonoBehaviour
         {
             if (currentNumber == targetNumber)
             {
+                quizOneDone = true;
+             
+                //Temporär
+                infoText.text = "Gut gemacht, Rätsel Eins erfolgreich gelöst!";
+
                 if (!soundHasPlayed)
                 {
                     AudioManager.instance.Play("correctSound");
                     soundHasPlayed = true;
+
                 }
 
                 foreach (GameObject i in digits)
@@ -57,10 +74,12 @@ public class QuizOne : MonoBehaviour
             }
             else
             {
+
                 if (!soundHasPlayed)
                 {
                     AudioManager.instance.Play("wrongSound");
                     soundHasPlayed = true;
+                    tryCount += 1;
                 }
 
                 timer += Time.deltaTime;
@@ -90,11 +109,17 @@ public class QuizOne : MonoBehaviour
         {
             soundHasPlayed = false;
         }
+
+        if(tryCount >= 1 && !quizOneDone)
+        {
+            // Temporär
+            infoText.text = "Ich merke schon, Mathe war nicht dein Lieblingsfach. Die Lösung für dieses Rätsel ist 2318";
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Digit") && other.gameObject.GetComponent<Digit>().digit.ToString() != previousNumber && timer == 0)
+        if (other.CompareTag("Digit") && other.gameObject.GetComponent<Digit>().digit.ToString() != previousNumber && timer == 0 && !quizOneDone)
         {
             tempNumber += other.gameObject.GetComponent<Digit>().digit.ToString();
             previousNumber = other.gameObject.GetComponent<Digit>().digit.ToString();
