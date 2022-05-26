@@ -134,7 +134,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: Test_19_05_22
+  bundleVersion: MS2
   preloadedAssets:
   - {fileID: 0}
   - {fileID: 0}
