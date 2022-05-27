@@ -13,6 +13,7 @@ public class Bunny : MonoBehaviour
     #endregion
 
     // Mithilfe eines Enums werden festgelegte Positionen im Spielfluss definiert
+
     [System.Serializable]
     public enum BunnyPosition
     {
@@ -88,7 +89,7 @@ public class Bunny : MonoBehaviour
         bunnyPosition = BunnyPosition.atExit;
     }
 
-    // Wird in der 'Jump' Animation aufgerufen
+    // Der 'hoppSound' wird in der Sprunganimation aufgerufen
 
     void PlayHoppSound()
     {

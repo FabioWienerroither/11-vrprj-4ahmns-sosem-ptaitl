@@ -25,6 +25,8 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
+        // Die Hintergrundmusik und die Vogelgeräusche sollen als 2D Stereoquellen von Anfang an abspielen
+
         Play(birds);
         Play(music);
     }

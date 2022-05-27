@@ -8,7 +8,6 @@ public class MinigameOne : MonoBehaviour
     int currentNumber;
     float timer;
     string tempNumber;
-    string previousNumber;
     bool soundHasPlayed;
     bool animationWasSet;
     List<GameObject> digits = new List<GameObject>();
@@ -124,7 +123,6 @@ public class MinigameOne : MonoBehaviour
 
                     digits.Clear();
                     timer = 0;
-                    previousNumber = null;
                     tempNumber = "";
                 }
             }
@@ -139,7 +137,7 @@ public class MinigameOne : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Collision nur akzeptieren, wenn...
+        // Collision nur akzeptieren, wenn:
 
         bool objectIsAllowed = (other.CompareTag("Digit") && !digits.Contains(other.gameObject));
         bool timingIsRight = (timer == 0);

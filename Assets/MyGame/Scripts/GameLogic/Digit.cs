@@ -10,8 +10,10 @@ public class Digit : MonoBehaviour
     public Material neutralDigitMat;
     #endregion
 
-    private void Start()
+    void Start()
     {
+        // Am Anfang sollen die Zahlen alle neutral gefärbt sein
+
         GetComponent<Renderer>().material = neutralDigitMat;
         transform.GetChild(0).GetComponent<Renderer>().material = neutralDigitMat;
     }

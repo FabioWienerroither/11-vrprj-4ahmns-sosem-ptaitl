@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Tor : MonoBehaviour
 {
+    // Mithilfe eines Enums kann dieses Script sowohl für den Eingang als auch für den Ausgang verwendet werden
+
     public enum TorArt
     {
         Eingang,
@@ -17,6 +19,7 @@ public class Tor : MonoBehaviour
     void Update()
     {
         // Beim Minigame angekommen gibt es kein Zurück mehr, der Eingang schließt sich
+
         if(tor == TorArt.Eingang && Checkpoints.playerHasReachedMinigameOne)
         {
             transform.GetChild(0).gameObject.SetActive(true);
