@@ -315,7 +315,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: a2c7598224d624d77a2bd17b6b169b66, type: 2}
   m_audioClip: {fileID: 8300000, guid: ed08ced3bb4e94be68fa5a025476f62c, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.485
+  m_Volume: 0.365
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -411,7 +411,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: a2c7598224d624d77a2bd17b6b169b66, type: 2}
   m_audioClip: {fileID: 8300000, guid: 5cee35e0e7c5a4d4a9f2a2fe3828d3f3, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.35
+  m_Volume: 0.422
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -4059,8 +4059,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 7.2577395, y: 2.66, z: 8.409129}
-  m_Center: {x: -1.0438884, y: 1.945582, z: 1.930687}
+  m_Size: {x: 7.2577395, y: 3.4778955, z: 8.409129}
+  m_Center: {x: -1.0438884, y: 2.3545282, z: 1.930687}
 --- !u!82 &1601981562
 AudioSource:
   m_ObjectHideFlags: 0
