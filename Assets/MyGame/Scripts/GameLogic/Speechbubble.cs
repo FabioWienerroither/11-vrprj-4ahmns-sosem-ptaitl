@@ -13,27 +13,27 @@ public class Speechbubble : MonoBehaviour
     {
         // Texte innerhalb der Sprechblase entsprechend der aktuellen Checkpoints
 
-        if (GameFlow.playerHasReachedExit)
+        if (Checkpoints.playerHasReachedExit)
         {
-            transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Du hast es geschafft! Wir haben es erfolgfreich aus dem Labyrinth geschafft.";
+            transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Das war's! Wir haben es erfolgfreich aus dem Labyrinth geschafft.";
         }
 
-        else if (GameFlow.playerHasDoneMinigameOne)
+        else if (Checkpoints.playerHasDoneMinigameOne)
         {
             transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Super, du hast das Zahlenrätsel richtig gelöst! Folge mir bis zum Ausgang.";
         }
 
-        else if (GameFlow.playerHasFailedMinigameOne)
+        else if (Checkpoints.playerHasFailedMinigameOne && Checkpoints.playerHasReachedMinigameOne)
         {
             transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Ich merke schon, Mathe ist nicht deine Stärke... \n Das Ergebnis ist »2318«";
         }
 
-        else if (GameFlow.playerHasReachedMinigameOne)
+        else if (Checkpoints.playerHasReachedMinigameOne)
         {
-            transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Ostersonntag wird jedes Jahr am ersten Sonntag nach dem Vollmond im Frühling gefeiert. Heuer ist das der 17/04/2022. Um dieses Rätsel zu lösen, bilde die Quersumme aus diesem Datum, addiere die Zahl 2300 und gibt das Ergebnis durch Berühren der Ziffern mit der rechten Hand in das Zahlenfeld ein.";
+            transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Ostersonntag wird jedes Jahr am ersten Sonntag nach dem Vollmond im Frühling gefeiert. Heuer ist das der 17/04/2022. Um dieses Rätsel zu lösen, bilde die Quersumme aus diesem Datum, addiere die Zahl 2300 und gibt das Ergebnis durch Berühren der Ziffern mit der rechten Hand in das nebenstehende Zahlenfeld ein.";
         }
 
-        else if (GameFlow.playerHasReachedBunny)
+        else if (Checkpoints.playerHasReachedBunny)
         {
             transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Mein Name ist Hase, ich weiß von nichts... \n Naja, das stimmt nicht ganz, ich weiß nämlich von einem Zahlenrätsel, das im Labyrinth versteckt ist. Folge mir und versuche es zu lösen!";
         }
@@ -47,12 +47,12 @@ public class Speechbubble : MonoBehaviour
 
         // Animation entsprechend der aktuellen Checkpoints triggern
 
-        if (GameFlow.playerHasReachedBunny && !GameFlow.playerHasDoneMinigameOne)
+        if (Checkpoints.playerHasReachedBunny && !Checkpoints.playerHasDoneMinigameOne)
         {
             bunnyAnimator.SetTrigger("ToMinigameOne");
 
         }
-        else if (GameFlow.playerHasReachedBunny && GameFlow.playerHasDoneMinigameOne)
+        else if (Checkpoints.playerHasReachedBunny && Checkpoints.playerHasDoneMinigameOne)
         {
             bunnyAnimator.SetTrigger("ToExit");
         }

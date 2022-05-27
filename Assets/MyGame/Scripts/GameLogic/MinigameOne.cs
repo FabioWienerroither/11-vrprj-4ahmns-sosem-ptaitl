@@ -10,6 +10,7 @@ public class MinigameOne : MonoBehaviour
     string tempNumber;
     string previousNumber;
     bool soundHasPlayed;
+    bool animationWasSet;
     List<GameObject> digits = new List<GameObject>();
     #endregion
 
@@ -24,6 +25,10 @@ public class MinigameOne : MonoBehaviour
     public int targetNumber;
     [Range(0,10)]
     public int timeoutAfterTry;
+    [Header("Referenten")]
+    public Animator speechbubbleAnimator;
+    public GameObject bunny;
+    public Camera mainCamera;
     #endregion
 
     private void Start()
@@ -52,14 +57,25 @@ public class MinigameOne : MonoBehaviour
         {
             if (currentNumber == targetNumber)
             {
-                GameFlow.playerHasDoneMinigameOne = true;
+                // Wenn das Egebniss richtig ist, soll der Checkpoint angepasst
+
+                Checkpoints.playerHasDoneMinigameOne = true;
 
                 // Der 'correctSound' soll nur einmal abgespielt werden
 
                 if (!soundHasPlayed)
                 {
-                    AudioManager.instance.Play(AudioManager.instance.birds);
+                    AudioManager.instance.Play(AudioManager.instance.correctSound);
                     soundHasPlayed = true;
+                }
+
+                // Der neue Text auf der Sprechblase soll erst sichtbar werden, wenn die Camera den Hasen sieht
+
+                if (!animationWasSet && IsVisible(mainCamera, bunny))
+                {
+                    speechbubbleAnimator.ResetTrigger("EinblendenOhneZeit");
+                    speechbubbleAnimator.SetTrigger("EinblendenMitZeit");
+                    animationWasSet = true;
                 }
 
                 // Alle gedrückten Zahlen sollen grün werden
@@ -74,7 +90,7 @@ public class MinigameOne : MonoBehaviour
             {
                 // Checkpoint ändern, damit ein Hinweis in der Sprechblase angezeigt wird
 
-                GameFlow.playerHasFailedMinigameOne = true;
+                Checkpoints.playerHasFailedMinigameOne = true;
 
                 // Der 'wrongSound' soll nur einmal abgespielt werden
 
@@ -123,17 +139,17 @@ public class MinigameOne : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Collision nur akzeptieren, wenn... 
+        // Collision nur akzeptieren, wenn...
 
-        if (other.CompareTag("Digit") && other.gameObject.GetComponent<Digit>().digit.ToString() != previousNumber && timer == 0 && !GameFlow.playerHasDoneMinigameOne)
+        bool objectIsAllowed = (other.CompareTag("Digit") && !digits.Contains(other.gameObject));
+        bool timingIsRight = (timer == 0);
+        bool checkpointsAreRight = (!Checkpoints.playerHasDoneMinigameOne && Checkpoints.playerHasReachedMinigameOne);
+
+        if (objectIsAllowed && timingIsRight && checkpointsAreRight)
         {
             // Digit zum zu parsenden String hinzufügen
 
             tempNumber += other.gameObject.GetComponent<Digit>().digit.ToString();
-
-            // Um ungewollte Eingaben zu verhindern, sollen nicht zwei gleiche Zahlen hintereinander gedrückt werden können
-
-            previousNumber = other.gameObject.GetComponent<Digit>().digit.ToString();
 
             // gedrückte Zahl zur Liste, die später alle gedrückten Zahlen grün bzw. rot färbt
 
@@ -148,5 +164,22 @@ public class MinigameOne : MonoBehaviour
 
             AudioManager.instance.Play(AudioManager.instance.clickSound);
         }
+    }
+
+    // Je nachdem, ob ein Object von einer Kamera gesehen wird oder nicht, gibt die Funktion einen entsprechenden bool zurück
+
+    private bool IsVisible(Camera c, GameObject target)
+    {
+        var planes = GeometryUtility.CalculateFrustumPlanes(c);
+        var point = target.transform.position;
+
+        foreach (var plane in planes)
+        {
+            if (plane.GetDistanceToPoint(point) < 0)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

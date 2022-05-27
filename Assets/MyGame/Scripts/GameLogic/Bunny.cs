@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class Bunny : MonoBehaviour
 {
+    #region Privates
+    bool alreadyTriggeredAtMinigameOne;
+    bool alreadyTriggeredAtEntry;
+    bool alreadyTriggeredAtExit;
+    #endregion
+
     #region Fields
     public Animator speechbubbleAnimator;
     #endregion
@@ -29,39 +35,40 @@ public class Bunny : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        switch (other.gameObject.tag)
+        if (other.gameObject.CompareTag("Player"))
         {
-            case "Player":
+            // Je nach Standpunkt des Hasen während der Kollision mit dem Spieler soll ein anderer Checkpoint true werden
 
-                // Je nach Standpunkt des Hasen während der Kollision mit dem Spieler soll ein anderer Checkpoint true werden
-
-                switch (bunnyPosition)
-                {
-                    case BunnyPosition.atEntry:
-                        GameFlow.playerHasReachedBunny = true;
-
-                        // Kommt der Spieler in die Nähe des Hasen, soll die Sprechblase eingeblendet werden 
-
+            switch (bunnyPosition)
+            {
+                case BunnyPosition.atEntry:
+                    Checkpoints.playerHasReachedBunny = true;
+                    if (!alreadyTriggeredAtEntry)
+                    {
                         speechbubbleAnimator.SetTrigger("EinblendenMitZeit");
-                        break;
+                        alreadyTriggeredAtEntry = true;
+                    }
+                    break;
 
-                    case BunnyPosition.atMinigameOne:
-                        GameFlow.playerHasReachedMinigameOne = true;
+                case BunnyPosition.atMinigameOne:
+                    Checkpoints.playerHasReachedMinigameOne = true;
+                    if (!alreadyTriggeredAtMinigameOne)
+                    {
+                        speechbubbleAnimator.ResetTrigger("EinblendenMitZeit");
                         speechbubbleAnimator.SetTrigger("EinblendenOhneZeit");
-                        break;
+                        alreadyTriggeredAtMinigameOne = true;
+                    }
+                    break;
 
-                    case BunnyPosition.atExit:
-                        GameFlow.playerHasReachedExit = true;
-                        break;
-                }
-                break;
-
-            case "Ground":
-
-                // Wenn der Hase den Boden berührt, soll ein entsprechender Sound abgespielt werden
-
-                AudioManager.instance.Play(AudioManager.instance.hoppSound);
-                break;
+                case BunnyPosition.atExit:
+                    Checkpoints.playerHasReachedExit = true;
+                    if (!alreadyTriggeredAtExit)
+                    {
+                        speechbubbleAnimator.SetTrigger("EinblendenOhneZeit");
+                        alreadyTriggeredAtExit = true;
+                    }
+                    break;
+            }
         }
     }
 
@@ -79,5 +86,12 @@ public class Bunny : MonoBehaviour
     {
         GetComponent<Animator>().SetLayerWeight(1, 0);
         bunnyPosition = BunnyPosition.atExit;
+    }
+
+    // Wird in der 'Jump' Animation aufgerufen
+
+    void PlayHoppSound()
+    {
+        AudioManager.instance.Play(AudioManager.instance.hoppSound);
     }
 }

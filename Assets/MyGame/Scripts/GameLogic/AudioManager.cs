@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -12,7 +10,6 @@ public class AudioManager : MonoBehaviour
     public AudioSource correctSound;
 
     [Header("2D AudioSources")]
-    public AudioSource ambience;
     public AudioSource music;
     public AudioSource birds;
     #endregion
@@ -28,7 +25,8 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        Play(ambience);
+        Play(birds);
+        Play(music);
     }
 
     // Über die Play Methode kann zu jedem Zeitpunkt im Spiel ein Sound getriggert werden
