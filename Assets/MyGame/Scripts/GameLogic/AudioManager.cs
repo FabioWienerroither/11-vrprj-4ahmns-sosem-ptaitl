@@ -8,6 +8,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource clickSound;
     public AudioSource wrongSound;
     public AudioSource correctSound;
+    public AudioSource bunnyIdle;
 
     [Header("2D AudioSources")]
     public AudioSource music;
@@ -25,10 +26,11 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        // Die Hintergrundmusik und die Vogelgeräusche sollen als 2D Stereoquellen von Anfang an abspielen
+        // Die Hintergrundmusik, die Vogelgeräusche und die Bunny Idle-Sounds sollen als 2D Stereoquellen von Anfang an abspielen
 
         Play(birds);
         Play(music);
+        Play(bunnyIdle);
     }
 
     // Über die Play Methode kann zu jedem Zeitpunkt im Spiel ein Sound getriggert werden

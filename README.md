@@ -27,7 +27,7 @@ Grundsätzlich soll das Spiel mithilfe eines Toonshaders (Tutorial von Erik Roys
 
 ## Auditive Gestaltung
 
-Um das Spiel noch immersiver zu machen, sollen 3D Sounds, sowie 2D Atmo Sounds eingebaut werden. Folgende AudioClips sind im Projekt enthalten:
+Um das Spiel noch immersiver zu machen, sollen 3D Sounds, sowie 2D Atmo Sounds eingebaut werden. Folgende AudioClips (teils aus dem Internet, teils selbst aufgenommen) sind im Projekt enthalten:
 
 * Hase
   * Idle Sound
@@ -40,21 +40,18 @@ Um das Spiel noch immersiver zu machen, sollen 3D Sounds, sowie 2D Atmo Sounds e
   * Vögelgeräusche
   * Hintergrundmusik
 
+Alle Sounds sind im .wav Format mit 48 kHz und 16 bit. Abhängig davon, ob es sich um 3D oder 2D Sounds handelt, sind die AudioClips Mono oder Stereo
+
 ## Arbeitsschritte
 1. Projekt aufsetzten
 2. Projekt builden und Fortbewegung, Scale, etc. am Headset ausprobieren
-3. evtl. Bugs fixen
-4. Modells suchen bzw. modellieren
-5. Hasen und Führung durchs Spiel einbauen
-6. Projekt builden und Führung ausprobieren
-7. evtl. Bugs fixen
-8. Rechenrätsel einbauen
-9. Projekt builden und Rätsel ausprobieren
-10. Restlichen Spielfluss einbauen (Sprechblasen)
-11. Projekt builden und ausprobieren
-12. evtl. Bugs fixen
+3. Assets suchen
+4. Hase und Führung durchs Spiel einbauen
+5. Rechenrätsel einbauen
+6. Restlichen Spielfluss einbauen (Sprechblasen)
+7. Projekt final builden
 
-Die letzten Schritte sind iterativ: Es alle Bugs gefixed, bis die .apk ohne Fehler und flüssig läuft.
+Alle Schritte sind iterativ: Es wird immer wieder getestet und Bugs gefixed.
 
 ## Limitations
 
@@ -62,25 +59,23 @@ Das Spiel ist lediglich auf Oculus VR-Brillen spielbar.
 
 ## Packages
 
-- 2D Sprite 1.0.0
-- JetBrains Rider Editor 2.0.7
-- Oculus XR Plugin 1.10.0
-- Post Processing 3.1.1
-- Test Framework 1.1.29
-- TextMeshPro 3.0.6
-- Timeline 1.4.8
-- Unity UI 1.0.0
-- Version Control 1.9.0
-- Visual Studio Code Editor 1.2.4
-- Visual Studio Editor 2.0.11
-- XR Interaction Toolkit 1.0.0-pre.8
-- XR Plugin Management 4.2.0
+- JetBrains Rider Editor | com.unity.ide.rider | 2.0.7
+- Oculus XR Plugin | com.unity.xr.oculus | 1.10.0
+- Test Framework | com.unity.test-framework | 1.1.29
+- TextMeshPro | com.unity.textmeshpro | 3.0.6
+- Timeline | com.unity.timeline | 1.4.8
+- Unity UI | com.unity.ugui | 1.0.0
+- Version Control | com.unity.collab-proxy | 1.9.0
+- Visual Studio Code Editor | com.unity.ide.vscode | 1.2.3
+- Visual Studio Editor | com.unity.ide.visualstudio | 2.0.11
+- XR Interaction Toolkit | com.unity.xr.interaction.toolkit | 2.0.0-pre.7
+- XR Plugin Management | com.unity.xr.management | 4.0.7
 
 > **Note:** Alle verwendeten Packages sind dauerhaft kostenlos und im Repository inkludiert. Beim Clonen des Projekts müssen keine zusätzlichen Packages installiert werden.
 
 ## Assets
 
-Alle Assets sind kostenlose Modelle von folgenden Seiten:
+Der Hase, die Bäume, sowie die vorbeifliegenden Vögel sind kostenlose Modelle von folgenden Seiten:
 
 - https://www.turbosquid.com
 - https://www.cgtrader.com/
