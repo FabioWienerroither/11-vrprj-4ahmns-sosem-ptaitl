@@ -51,7 +51,12 @@ Alle Sounds sind im .wav Format mit 48 kHz und 16 bit. Abhängig davon, ob es si
 6. Restlichen Spielfluss einbauen (Sprechblasen)
 7. Projekt final builden
 
-Alle Schritte sind iterativ: Es wird immer wieder getestet und Bugs gefixed.
+## User Testing
+
+Die oberhalb beschriebenen Arbeitsschritte sind iterativ zu verstehen: Es wurde immer wieder getestet und Bugs gefixed. Außerdem wurden User Tests während der Entwicklung durchgeführt, um sicherzustellen, dass die Spieler sich auskennen. Dabei wurde u.A. folgendes festgestellt:
+
+- Zeitlich limitierte Sprechblasen brauchen einen Zeitindikator
+- Wenn das Zahlenrätsel nicht gelöst werden kann, muss ein Hinweis angezeigt werden
 
 ## Limitations
 
@@ -82,6 +87,6 @@ Der Hase, die Bäume, sowie die vorbeifliegenden Vögel sind kostenlose Modelle 
 
 ## Abschließende Anmerkung
 
-Da es sich um ein Schulprojekt handelt, sind alle Scripts sehr detalliert kommentiert, damit das Beurteilen der Arbeit leichter fällt und Zusammenhänger besser verständlich werden.
+Da es sich um ein Schulprojekt handelt, sind alle Scripts sehr detalliert kommentiert, damit das Beurteilen der Arbeit leichter fällt und Zusammenhänger besser verständlich werden. Diese Kommentare sind also nicht als Code-Smells zu beurteilen.
 
 Copyright © 2022 by ptaitl
